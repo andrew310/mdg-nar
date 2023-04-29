@@ -37,6 +37,7 @@ export const usePagination = (opts?: Opts) => {
     page: parseInt(searchParams.get("page") || "1") - 1,
     pageSize: parseInt(
       searchParams.get("pageSize") ||
+      _cookiePageSize ||
       defaultPageSize.toString()
     ),
   };
