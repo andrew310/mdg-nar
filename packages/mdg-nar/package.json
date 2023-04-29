@@ -1,7 +1,7 @@
 {
   "name": "mdg-nar",
   "description": "Mui DataGrid - Next.js App Router",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -9,6 +9,9 @@
     "src"
   ],
   "license": "MIT",
+  "publish": {
+    "access": "public"
+  },
   "scripts": {
     "lint": "eslint \"**/*.ts*\"",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf .next",
