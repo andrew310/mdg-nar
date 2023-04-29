@@ -1,6 +1,6 @@
 import {
   DataGridPremiumProps,
-  GridPaginationModel,
+  type GridPaginationModel
 } from "@mui/x-data-grid-premium";
 
 import useCookie from "react-use-cookie";

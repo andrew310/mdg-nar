@@ -2,7 +2,7 @@
 import React from "react";
 
 import {
-  GridApiCommon,
+  type GridApi,
   gridColumnFieldsSelector,
 } from "@mui/x-data-grid-premium";
 
@@ -18,7 +18,7 @@ export type UseColumnOrderProps = {
  * because it only gets read on the client.
  */
 export const useColumnOrder = (
-  apiRef: React.MutableRefObject<GridApiCommon>,
+  apiRef: React.MutableRefObject<GridApi>,
   { key, initialState = [] }: UseColumnOrderProps
 ) => {
   const [state, setState] = useLocalStorage(key, initialState);
