@@ -8,6 +8,9 @@
       "outputs": [
         ".next/**",
         "!.next/cache/**"
+      ],
+      "env": [
+        "MUI_X_LICENSE_KEY"
       ]
     },
     "lint": {},
