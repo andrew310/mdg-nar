@@ -1,6 +1,8 @@
+import { useEffect } from "react";
+
 import {
-  DataGridPremiumProps,
-  type GridPaginationModel
+  GridApi,
+  type GridPaginationModel,
 } from "@mui/x-data-grid-premium";
 
 import useCookie from "react-use-cookie";
@@ -17,21 +19,25 @@ type Opts = {
  * We use a cookie over local storage because in the event the user visits the url without the query params,
  * your server should use the cookie value as the default page size.
  */
-export const usePagination = (opts?: Opts) => {
+export const usePagination = (
+  apiRef: React.MutableRefObject<GridApi>,
+  opts?: Opts
+) => {
   const { defaultPageSize = 10 } = opts || {};
   const { searchParams, setParams } = useQuery();
-  const [_cookiePageSize, _setPageSize] = useCookie("pageSize", defaultPageSize.toString());
+  const [_cookiePageSize, _setPageSize] = useCookie(
+    "pageSize",
+    defaultPageSize.toString()
+  );
 
-  const onPaginationModelChange: DataGridPremiumProps["onPaginationModelChange"] =
-    ({ page, pageSize }) => {
-
-      // set the page size in the cookie
-      _setPageSize(pageSize.toString());
-      setParams({
-        page: ((page || 0) + 1).toString(),
-        pageSize: pageSize.toString(),
-      });
-    };
+  const onPaginationModelChange = ({ page, pageSize }: GridPaginationModel) => {
+    // set the page size in the cookie
+    _setPageSize(pageSize.toString());
+    setParams({
+      page: ((page || 0) + 1).toString(),
+      pageSize: pageSize.toString(),
+    });
+  };
 
   const paginationModel: GridPaginationModel = {
     page: parseInt(searchParams.get("page") || "1") - 1,
@@ -42,5 +48,12 @@ export const usePagination = (opts?: Opts) => {
     ),
   };
 
-  return { paginationModel, onPaginationModelChange };
+  useEffect(() => {
+    return apiRef.current.subscribeEvent(
+      "paginationModelChange",
+      (newPagination) => onPaginationModelChange(newPagination)
+    );
+  }, [apiRef]);
+
+  return paginationModel;
 };
