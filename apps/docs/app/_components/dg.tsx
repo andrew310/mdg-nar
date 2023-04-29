@@ -57,10 +57,6 @@ export function DG() {
   const colOrder = useColumnOrder(apiRef, { key: "colOrder" });
   const { paginationModel, onPaginationModelChange } = usePagination();
   const { sortModel, onSortModelChange } = useSortModel()
-  // const [state, setState] = React.useState({ rows, columns });
-
-  // "mdg-nar"
-  console.log("WHY WE RE_RENDER")
 
   return (
     <div style={{ height: 400, width: "100%" }}>
@@ -73,6 +69,8 @@ export function DG() {
         sortingMode="client"
         pageSizeOptions={[5, 10, 20, 50, 100]}
         paginationMode="client"
+        paginationModel={paginationModel}
+        onPaginationModelChange={onPaginationModelChange}
         sortModel={sortModel}
         onSortModelChange={onSortModelChange}
         columns={columns}
