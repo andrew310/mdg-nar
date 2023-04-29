@@ -1,10 +1,10 @@
 "use client";
-import React from "react"
+import React from "react";
 
 import {
   DataGridPremium,
   useGridApiRef,
-  GridColDef
+  GridColDef,
 } from "@mui/x-data-grid-premium";
 
 import { useColumnOrder, usePagination, useSortModel } from "mdg-nar";
@@ -55,8 +55,8 @@ const rows = [
 export function DG() {
   const apiRef = useGridApiRef();
   const colOrder = useColumnOrder(apiRef, { key: "colOrder" });
-  const { paginationModel, onPaginationModelChange } = usePagination();
-  const { sortModel, onSortModelChange } = useSortModel()
+  const paginationModel = usePagination(apiRef);
+  const { sortModel, onSortModelChange } = useSortModel();
 
   return (
     <div style={{ height: 400, width: "100%" }}>
@@ -69,8 +69,6 @@ export function DG() {
         sortingMode="client"
         pageSizeOptions={[5, 10, 20, 50, 100]}
         paginationMode="client"
-        paginationModel={paginationModel}
-        onPaginationModelChange={onPaginationModelChange}
         sortModel={sortModel}
         onSortModelChange={onSortModelChange}
         columns={columns}
@@ -79,6 +77,9 @@ export function DG() {
         initialState={{
           columns: {
             orderedFields: colOrder,
+          },
+          pagination: {
+            paginationModel
           }
         }}
       />
