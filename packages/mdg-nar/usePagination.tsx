@@ -20,13 +20,13 @@ type Opts = {
 export const usePagination = (opts?: Opts) => {
   const { defaultPageSize = 10 } = opts || {};
   const { searchParams, setParams } = useQuery();
-  // const [_cookiePageSize, _setPageSize] = useCookie("pageSize", "10");
+  const [_cookiePageSize, _setPageSize] = useCookie("pageSize", "10");
 
   const onPaginationModelChange: DataGridPremiumProps["onPaginationModelChange"] =
     ({ page, pageSize }) => {
 
       // set the page size in the cookie
-      // _setPageSize(pageSize.toString());
+      _setPageSize(pageSize.toString());
       setParams({
         page: ((page || 0) + 1).toString(),
         pageSize: pageSize.toString(),
